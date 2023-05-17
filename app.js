@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const taskRoute = require("./routes/tasks");
+const userRoute = require("./routes/users");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 const CryptoJS = require("crypto-js");
@@ -38,18 +39,21 @@ start();
 //ルーティング設計(task)
 app.use("/api/v1/tasks",taskRoute);
 
+// ユーザーの全件取得
+app.use("/api/v1/users", userRoute);
+
 //ユーザー新規登録API
 app.post("/register",async(req,res) => {
   //パスワードの受け取り
   const password = req.body.password;
 
   try{
-    //パスワードの暗号化
+    //【4】 パスワードの暗号化
     const encryptedPassword = CryptoJS.AES.encrypt(password, 'test').toString();
     req.body.password = encryptedPassword;
-    //ユーザー新規作成
+    //【5】 ユーザー新規作成
     const user = await User.create(req.body);
-    //JWTの発行
+    //【6】 JWTの発行
     const token = JWT.sign({ id: user._id }, 'test',{
       expiresIn:"24h",
     });
