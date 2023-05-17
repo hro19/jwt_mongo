@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TaskSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     require: [true, "タスクを入れてください"],
@@ -13,4 +13,4 @@ const TaskSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Task", TaskSchema);
+module.exports = mongoose.model("User", UserSchema);
