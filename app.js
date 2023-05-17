@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const userRoute = require("./routes/users");
+const taskRoute = require("./routes/tasks");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 //ルーティング設計
-app.use("/api/v1/users",userRoute);
+app.use("/api/v1/tasks",taskRoute);
 
 //データベースと接続
 const start = async () => {

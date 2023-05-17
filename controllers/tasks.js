@@ -1,51 +1,51 @@
-const User = require("../models/User");
+const Task = require("../models/Task");
 
 //全てのタスク
-const getAllUsers = async (req, res) => {
+const getAllTasks = async (req, res) => {
   try {
-    const allUser = await User.find({});
-    res.status(200).json(allUser);
+    const allTask = await Task.find({});
+    res.status(200).json(allTask);
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
 //タスク新規作成
-const createUser = async(req, res) => {
+const createTask = async(req, res) => {
     try {
-    const createUser = await User.create(req.body);
-        res.status(200).json(createUser);
+    const createTask = await Task.create(req.body);
+        res.status(200).json(createTask);
     } catch (err) {
         res.status(500).json(err);
     }
 };
 
 //特定タスクの呼び出し
-const getSingleUser = async (req, res) => {
+const getSingleTask = async (req, res) => {
   try {
     const id = req.params.id;
-    const singleUser = await User.findOne({ _id: id }).exec();
-    res.status(200).json(singleUser);
+    const singleTask = await Task.findOne({ _id: id }).exec();
+    res.status(200).json(singleTask);
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
 //タスク編集
-const updateUser = async (req, res) => {
+const updateTask = async (req, res) => {
   try {
     const id = req.params.id;
     const update = req.body; // 更新するデータをリクエストボディから取得
     const options = { new: true }; // 更新後のタスクを取得するためのオプション
 
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedTask = await Task.findOneAndUpdate(
       { _id: id },
       update,
       options
     ).exec();
 
-    if (updatedUser) {
-      res.status(200).json(updatedUser);
+    if (updatedTask) {
+      res.status(200).json(updatedTask);
     } else {
       res.status(404).json({ message: "存在しません" });
     }
@@ -55,13 +55,13 @@ const updateUser = async (req, res) => {
 };
 
 //タスク削除
-const deleteUser = async (req, res) => {
+const deleteTask = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const deletedUser = await User.findOneAndDelete({ _id: id }).exec();
+    const deletedTask = await Task.findOneAndDelete({ _id: id }).exec();
 
-    if (deletedUser) {
+    if (deletedTask) {
       res.status(200).json({ message: "正常に削除できました" });
     } else {
       res.status(404).json({ message: "このタスクがありません" });
@@ -72,9 +72,9 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  getAllUsers,
-  createUser,
-  getSingleUser,
-  updateUser,
-  deleteUser
+  getAllTasks,
+  createTask,
+  getSingleTask,
+  updateTask,
+  deleteTask
 };
