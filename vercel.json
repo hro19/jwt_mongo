@@ -12,8 +12,25 @@
       "dest": "app.js"
     },
     {
-      "src":"/api/v1/tasks/(.*)",
-      "headers":{"Location":"/api/v1/tasks/$1"},
+      "src": "/api/v1/tasks/(.*)",
+      "headers": { "Location": "/api/v1/tasks/$1" },
+      "dest": "app.js"
+    },
+    {
+      "src": "/api/v1/users",
+      "dest": "app.js"
+    },
+    {
+      "src": "/api/v1/users/(.*)",
+      "headers": { "Location": "/api/v1/users/$1" },
+      "dest": "app.js"
+    },
+    {
+      "src": "/api/v1/register",
+      "dest": "app.js"
+    },
+    {
+      "src": "/api/v1/login",
       "dest": "app.js"
     },
     {
