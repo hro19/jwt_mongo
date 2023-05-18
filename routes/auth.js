@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const CryptoJS = require("crypto-js");
-const JWT = require("jsonwebtoken");
-const { body, validationResult } = require("express-validator");
+const { body } = require("express-validator");
 const User = require("../models/User");
+const validation = require("../middlewares/validation");
+const userController = require("../controllers/users");
 
 //ユーザー新規登録API
 router.post(
@@ -24,39 +24,24 @@ router.post(
       }
     });
   }),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  async (req, res) => {
-    //パスワードの受け取り
-    const password = req.body.password;
-
-    try {
-      //【4】 パスワードの暗号化
-      const encryptedPassword = CryptoJS.AES.encrypt(
-        password,
-        "test"
-      ).toString();
-      req.body.password = encryptedPassword;
-      //【5】 ユーザー新規作成
-      const user = await User.create(req.body);
-      //【6】 JWTの発行
-      const token = JWT.sign({ id: user._id }, "test", {
-        expiresIn: "24h",
-      });
-      return res.status(200).json({ user, token });
-    } catch (err) {
-      return res.status(500).json(err);
-    }
-  }
+  validation.validate,
+  userController.register
 );
 
 //ユーザーログイン用API
+router.post(
+  "/login",
+  body("username")
+    .isLength({ min: 6 })
+    .withMessage("ユーザー名は6文字以上である必要があります"),
+  body("password")
+    .isLength({ min: 6 })
+    .withMessage("ユーザー名は6文字以上である必要があります"),
+  validation.validate,
+  userController.login
+);
 
-// ここにユーザーログイン用のAPIの実装を追加することができます
+    
+    // ここにユーザーログイン用のAPIの実装を追加することができます
 
-module.exports = router;
+    (module.exports = router);
