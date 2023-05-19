@@ -25,6 +25,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { username, password } = req.body;
 
+  //【3】 すでにそのユーザーが存在しているのチェック
   try {
     const user = await User.findOne({ username }).select("password username");
     if (!user) {
@@ -37,7 +38,10 @@ const login = async (req, res) => {
     }
 
     //パスワードが合っているかを照合する。
-    const decryptedPassword = CryptoJS.AES.decrypt(user.password, "test").toString(CryptoJS.enc.Utf8);
+    const decryptedPassword = CryptoJS.AES.decrypt(
+      user.password,
+      "test"
+    ).toString(CryptoJS.enc.Utf8);
 
     if (decryptedPassword !== password) {
       return res.status(401).json({

@@ -33,6 +33,7 @@ router.post(
 //ユーザーログイン用API
 router.post(
   "/login",
+  //【2】 バリデーションチェック
   body("username")
     .isLength({ min: 6 })
     .withMessage("ユーザー名は6文字以上である必要があります"),
