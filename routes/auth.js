@@ -8,6 +8,7 @@ const userController = require("../controllers/users");
 //ユーザー新規登録API
 router.post(
   "/register",
+  //【2】 バリデーションチェック
   body("username")
     .isLength({ min: 6 })
     .withMessage("ユーザー名は6文字以上である必要があります"),
@@ -17,6 +18,7 @@ router.post(
   body("confirmPassword")
     .isLength({ min: 6 })
     .withMessage("確認用パスワードは6文字以上である必要があります"),
+  //【3】 すでにそのユーザーが存在しているのチェック
   body("username").custom((value) => {
     return User.findOne({ username: value }).then((user) => {
       if (user) {
