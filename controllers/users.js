@@ -37,7 +37,7 @@ const login = async (req, res) => {
       });
     }
 
-    //パスワードが合っているかを照合する。
+    //【4】パスワードが合っているかを照合する。【5】は保存プロセスなのでログインページではありませんのでスキップ
     const decryptedPassword = CryptoJS.AES.decrypt(
       user.password,
       "test"
