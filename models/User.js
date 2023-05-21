@@ -13,7 +13,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      select: false,
+      select: false,//こちらで一覧画面に表示を制御することが出来る。
     },
   },
   // schemaOptions
