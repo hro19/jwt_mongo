@@ -44,7 +44,13 @@ router.post(
   userController.login
 );
 
-    
-    // ここにユーザーログイン用のAPIの実装を追加することができます
+// JWT認証API
+router.post(
+  "/verify-token",
+  (req, res) => {
+    return res.status(200).json({user:req.user})
+  }
+);
+
 
     (module.exports = router);
