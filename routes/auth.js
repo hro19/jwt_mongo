@@ -3,6 +3,7 @@ const router = express.Router();
 const { body } = require("express-validator");
 const User = require("../models/User");
 const validation = require("../middlewares/validation");
+const tokenHandler = require("../middlewares/tokenHandler");
 const userController = require("../controllers/users");
 
 //ユーザー新規登録API
@@ -47,6 +48,7 @@ router.post(
 // JWT認証API
 router.post(
   "/verify-token",
+  tokenHandler.verifyToken,
   (req, res) => {
     return res.status(200).json({user:req.user})
   }
