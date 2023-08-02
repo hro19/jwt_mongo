@@ -120,21 +120,21 @@ const getSingleUser = async (req, res) => {
 // };
 
 //タスク削除
-// const deleteTask = async (req, res) => {
-//   try {
-//     const id = req.params.id;
+const deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
 
-//     const deletedTask = await Task.findOneAndDelete({ _id: id }).exec();
+    const deletedUser = await User.findOneAndDelete({ _id: id }).exec();
 
-//     if (deletedTask) {
-//       res.status(200).json({ message: "正常に削除できました" });
-//     } else {
-//       res.status(404).json({ message: "このタスクがありません" });
-//     }
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// };
+    if (deletedUser) {
+      res.status(200).json({ message: "正常に削除できました" });
+    } else {
+      res.status(404).json({ message: "このタスクがありません" });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 module.exports = {
   register,
@@ -142,5 +142,5 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   // updateUser,
-  // deleteUser
+  deleteUser
 };
