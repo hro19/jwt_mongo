@@ -86,15 +86,15 @@ const getAllUsers = async (req, res) => {
 // };
 
 //特定タスクの呼び出し
-// const getSingleTask = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const singleTask = await Task.findOne({ _id: id }).exec();
-//     res.status(200).json(singleTask);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// };
+const getSingleUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const singleUser = await User.findOne({ _id: id }).exec();
+    res.status(200).json(singleUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 //タスク編集
 // const updateTask = async (req, res) => {
@@ -140,7 +140,7 @@ module.exports = {
   register,
   login,
   getAllUsers,
-  // getSingleUser,
+  getSingleUser,
   // updateUser,
   // deleteUser
 };
