@@ -30,10 +30,12 @@ const login = async (req, res) => {
     const user = await User.findOne({ username }).select("password username");
     if (!user) {
       return res.status(401).json({
-        errors: {
-          param: "username",
-          message: "ユーザー名が無効です",
-        },
+        errors: [
+          {
+            param: "username",
+            message: "ユーザー名が無効です",
+          },
+        ],
       });
     }
 
