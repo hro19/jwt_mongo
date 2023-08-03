@@ -33,7 +33,7 @@ const login = async (req, res) => {
         errors: [
           {
             param: "username",
-            message: "ユーザー名が無効です",
+            msg: "ユーザー名が無効です",
           },
         ],
       });
