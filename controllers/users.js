@@ -49,7 +49,7 @@ const login = async (req, res) => {
       return res.status(401).json({
         errors: {
           param: "password",
-          message: "パスワードが無効です",
+          msg: "パスワードが無効です",
         },
       });
     }
