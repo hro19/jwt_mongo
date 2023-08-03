@@ -47,10 +47,12 @@ const login = async (req, res) => {
 
     if (decryptedPassword !== password) {
       return res.status(401).json({
-        errors: {
-          param: "password",
-          msg: "パスワードが無効です",
-        },
+        errors: [
+          {
+            param: "password",
+            msg: "パスワードが無効です",
+          },
+        ],
       });
     }
 
