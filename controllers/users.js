@@ -69,7 +69,7 @@ const login = async (req, res) => {
 };
 
 
-//全てのタスク
+//全てのユーザー
 const getAllUsers = async (req, res) => {
   try {
     const allUser = await User.find({});
@@ -79,17 +79,8 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-//タスク新規作成
-// const createTask = async(req, res) => {
-//     try {
-//     const createTask = await Task.create(req.body);
-//         res.status(200).json(createTask);
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// };
 
-//特定タスクの呼び出し
+//特定ユーザの呼び出し
 const getSingleUser = async (req, res) => {
   try {
     const id = req.params.id;
@@ -100,7 +91,7 @@ const getSingleUser = async (req, res) => {
   }
 };
 
-//タスク編集
+//ユーザー情報編集
 // const updateTask = async (req, res) => {
 //   try {
 //     const id = req.params.id;
@@ -123,7 +114,7 @@ const getSingleUser = async (req, res) => {
 //   }
 // };
 
-//タスク削除
+//ユーザー削除
 const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
