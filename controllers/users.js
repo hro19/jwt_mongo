@@ -9,11 +9,14 @@ const register = async (req, res) => {
 
   try {
     //【4】 パスワードの暗号化
-    const encryptedPassword = CryptoJS.AES.encrypt(password, "test").toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      password,
+      process.env.SECRET_KEY
+    ).toString();
     //【5】 ユーザー新規作成
     const user = await User.create({ username, password: encryptedPassword });
     //【6】 JWTの発行
-    const token = JWT.sign({ id: user._id }, "test", {
+    const token = JWT.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "24h",
     });
     return res.status(200).json({ user, token });
