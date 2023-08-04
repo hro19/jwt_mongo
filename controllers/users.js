@@ -1,6 +1,7 @@
 const CryptoJS = require("crypto-js");
 const JWT = require("jsonwebtoken");
 const User = require("../models/User");
+require("dotenv").config();
 
 // register関数
 const register = async (req, res) => {
@@ -42,7 +43,7 @@ const login = async (req, res) => {
     //【4】パスワードが合っているかを照合する。【5】は保存プロセスなのでログインページではありませんのでスキップ
     const decryptedPassword = CryptoJS.AES.decrypt(
       user.password,
-      "test"
+      process.env.SECRET_KEY
     ).toString(CryptoJS.enc.Utf8);
 
     if (decryptedPassword !== password) {
@@ -57,7 +58,7 @@ const login = async (req, res) => {
     }
 
     //【6】 JWTの発行
-    const token = JWT.sign({ id: user._id }, "test", {
+    const token = JWT.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "24h",
     });
 
