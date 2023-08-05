@@ -34,6 +34,10 @@
       "dest": "app.js"
     },
     {
+      "src": "/api/v1/verify-token",
+      "dest": "app.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "/404.html"
     }
