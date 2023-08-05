@@ -1,5 +1,6 @@
 const JWT = require("jsonwebtoken");
 const User = require("../models/User");
+require("dotenv").config();
 
 //クライアントから渡されたトークンが正常かの検証
 const tokenDecode = (req) => {
@@ -10,7 +11,7 @@ const tokenDecode = (req) => {
     const bearer = bearerHeader.split(" ")[1];
     try {
       //ベアラと秘密鍵情報を用いてJWTの検証と読み取りを行う。
-      const tokenDecoded = JWT.verify(bearer, "test");
+      const tokenDecoded = JWT.verify(bearer, process.env.SECRET_KEY);
       return tokenDecoded;
       //ベアラと秘密鍵が正しくない場合はfalseを返す->権限がない判定。
     } catch {
