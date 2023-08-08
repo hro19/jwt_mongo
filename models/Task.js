@@ -11,6 +11,10 @@ const TaskSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  userId: {
+    type: String,
+    required: [true, "task_idを入れてください"],
+  },
 });
 
 module.exports = mongoose.model("Task", TaskSchema);
