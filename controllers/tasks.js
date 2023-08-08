@@ -1,4 +1,5 @@
 const Task = require("../models/Task");
+const User = require("../models/User");
 
 //全てのタスク
 const getAllTasks = async (req, res) => {
@@ -77,7 +78,7 @@ const getUserTasks = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const singleUserExams = await User.find({ userId: id }).exec();
+    const singleUserExams = await Task.find({ userId: id }).exec();
 
     res.status(200).json(singleUserExams);
   } catch (err) {
