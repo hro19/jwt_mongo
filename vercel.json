@@ -26,6 +26,11 @@
       "dest": "app.js"
     },
     {
+      "src": "/api/v1/users/(.*)/tasks",
+      "headers": { "Location": "/api/v1/users/$1/tasks" },
+      "dest": "app.js"
+    },
+    {
       "src": "/api/v1/register",
       "dest": "app.js"
     },
