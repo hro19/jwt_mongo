@@ -71,10 +71,25 @@ const deleteTask = async (req, res) => {
   }
 };
 
+
+//ユーザーに紐づく全てのタスク
+const getUserTasks = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const singleUserExams = await User.find({ userId: id }).exec();
+
+    res.status(200).json(singleUserExams);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   getAllTasks,
   createTask,
   getSingleTask,
   updateTask,
-  deleteTask
+  deleteTask,
+  getUserTasks,
 };
