@@ -13,7 +13,7 @@ const TaskSchema = new mongoose.Schema({
   },
   userId: {
     type: String,
-    required: [true, "task_idを入れてください"],
+    required: [true, "userIdを入れてください"],
   },
 });
 
