@@ -1,4 +1,6 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+
 const app = express();
 const taskRoute = require("./routes/tasks");
 const userRoute = require("./routes/users");
@@ -8,6 +10,7 @@ require("dotenv").config();
 const cors = require("cors");
 
 const User = require("./models/User");
+app.use(cookieParser());
 app.use(express.json());
 const port = 5000;
 

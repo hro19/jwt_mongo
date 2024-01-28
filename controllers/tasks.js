@@ -1,6 +1,7 @@
 const Task = require("../models/Task");
 const User = require("../models/User");
 
+
 //全てのタスク
 const getAllTasks = async (req, res) => {
   try {
@@ -77,6 +78,8 @@ const deleteTask = async (req, res) => {
 const getUserTasks = async (req, res) => {
   try {
     const id = req.params.id;
+    const token = req.cookies.token;
+    console.log(token);
 
     const singleUserExams = await Task.find({ userId: id }).exec();
 
