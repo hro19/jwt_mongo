@@ -75,7 +75,7 @@ const getUserTasks = async (req, res) => {
     //リクエストの中からtokenを取得
     const token = req.cookies.token;
     if (!token || token === '') {
-      throw new Error('Token not found');
+      res.status(500).json("認証されていません");
     }
     
     const decoded = JWT.verify(token, process.env.SECRET_KEY);
