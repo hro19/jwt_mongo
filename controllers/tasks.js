@@ -76,6 +76,7 @@ const getUserTasks = async (req, res) => {
     const token = req.cookies.token;
     if (!token || token === '') {
       res.status(500).json("認証されていません");
+      return; // 認証されていない場合はここで処理を終了
     }
     
     const decoded = JWT.verify(token, process.env.SECRET_KEY);

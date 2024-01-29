@@ -12,6 +12,10 @@
       "dest": "app.js"
     },
     {
+      "src": "/api/v1/tasks/usertasks",
+      "dest": "app.js"
+    },
+    {
       "src": "/api/v1/tasks/(.*)",
       "headers": { "Location": "/api/v1/tasks/$1" },
       "dest": "app.js"
