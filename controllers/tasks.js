@@ -1,6 +1,6 @@
+const JWT = require("jsonwebtoken");
 const Task = require("../models/Task");
 const User = require("../models/User");
-
 
 //全てのタスク
 const getAllTasks = async (req, res) => {
@@ -13,13 +13,13 @@ const getAllTasks = async (req, res) => {
 };
 
 //タスク新規作成
-const createTask = async(req, res) => {
-    try {
+const createTask = async (req, res) => {
+  try {
     const createTask = await Task.create(req.body);
-        res.status(200).json(createTask);
-    } catch (err) {
-        res.status(500).json(err);
-    }
+    res.status(200).json(createTask);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 //特定タスクの呼び出し
@@ -40,11 +40,7 @@ const updateTask = async (req, res) => {
     const update = req.body; // 更新するデータをリクエストボディから取得
     const options = { new: true }; // 更新後のタスクを取得するためのオプション
 
-    const updatedTask = await Task.findOneAndUpdate(
-      { _id: id },
-      update,
-      options
-    ).exec();
+    const updatedTask = await Task.findOneAndUpdate({ _id: id }, update, options).exec();
 
     if (updatedTask) {
       res.status(200).json(updatedTask);
@@ -73,15 +69,17 @@ const deleteTask = async (req, res) => {
   }
 };
 
-
 //ユーザーに紐づく全てのタスク
 const getUserTasks = async (req, res) => {
   try {
-    const id = req.params.id;
+    //リクエストの中からtokenを取得
     const token = req.cookies.token;
-    console.log(token);
-
-    const singleUserExams = await Task.find({ userId: id }).exec();
+    if (!token || token === '') {
+      throw new Error('Token not found');
+    }
+    
+    const decoded = JWT.verify(token, process.env.SECRET_KEY);
+    const singleUserExams = await Task.find({ userId: decoded.id }).exec();
 
     res.status(200).json(singleUserExams);
   } catch (err) {
