@@ -18,7 +18,8 @@ const port = 5000;
 app.use(
   cors({
     origin: "https://jwt-front.pages.dev",
-    credentials: true
+    credentials: true,
+    optionsSuccessStatus: 200
   })
 );
 
