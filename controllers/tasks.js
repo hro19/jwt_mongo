@@ -75,7 +75,7 @@ const getUserTasks = async (req, res) => {
     //リクエストの中からtokenを取得
     const token = req.cookies.token;
     if (!token || token === '') {
-      res.status(500).json({ msg: "認証されていません", req });
+      res.status(500).json(req);
       return; // 認証されていない場合はここで処理を終了
     }
     
