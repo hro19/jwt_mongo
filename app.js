@@ -15,13 +15,7 @@ app.use(express.json());
 const port = 5000;
 
 // CORSを許可する設定
-app.use(
-  cors({
-    origin: "https://jwt-front.pages.dev",
-    credentials: true,
-    optionsSuccessStatus: 200
-  })
-);
+app.use(cors());
 
 // データベースと接続
 const start = async () => {

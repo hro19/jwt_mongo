@@ -72,15 +72,9 @@ const deleteTask = async (req, res) => {
 //ユーザーに紐づく全てのタスク
 const getUserTasks = async (req, res) => {
   try {
-    //リクエストの中からtokenを取得
-    const token = req.cookies.token;
-    if (!token || token === '') {
-      res.status(500).json("tokenを取得出来ませんでした");
-      return; // 認証されていない場合はここで処理を終了
-    }
-    
-    const decoded = JWT.verify(token, process.env.SECRET_KEY);
-    const singleUserExams = await Task.find({ userId: decoded.id }).exec();
+    const id = req.params.id;
+
+    const singleUserExams = await Task.find({ userId: id }).exec();
 
     res.status(200).json(singleUserExams);
   } catch (err) {
