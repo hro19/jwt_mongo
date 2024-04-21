@@ -1,6 +1,7 @@
 const CryptoJS = require("crypto-js");
 const JWT = require("jsonwebtoken");
 const User = require("../models/User");
+const Task = require("../models/Task");
 require("dotenv").config();
 
 // register関数
@@ -88,8 +89,12 @@ const getAllUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
   try {
     const id = req.params.id;
+
+    // 特定のユーザーを取得
     const singleUser = await User.findOne({ _id: id }).exec();
-    res.status(200).json(singleUser);
+    // 特定のユーザーのtasksを全取得
+    const userTasks = await Task.find({ userId: id }).exec();
+    res.status(200).json({singleUser,userTasks});
   } catch (err) {
     res.status(500).json(err);
   }
