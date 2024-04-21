@@ -91,10 +91,10 @@ const getSingleUser = async (req, res) => {
     const id = req.params.id;
 
     // 特定のユーザーを取得
-    const singleUser = await User.findOne({ _id: id }).exec();
+    const user = await User.findOne({ _id: id }).exec();
     // 特定のユーザーのtasksを全取得
     const userTasks = await Task.find({ userId: id }).exec();
-    res.status(200).json({singleUser,userTasks});
+    res.status(200).json({user,userTasks});
   } catch (err) {
     res.status(500).json(err);
   }
