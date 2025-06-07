@@ -124,7 +124,7 @@ router.get("/:id", getSingleTask);
 /**
  * @swagger
  * /api/v1/tasks/{id}:
- *   patch:
+ *   put:
  *     summary: タスク更新
  *     tags: [Tasks]
  *     security:
@@ -170,7 +170,7 @@ router.get("/:id", getSingleTask);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch("/:id", updateTask);
+router.put("/:id", updateTask);
 
 /**
  * @swagger
