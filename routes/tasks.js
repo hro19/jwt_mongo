@@ -125,7 +125,7 @@ router.get("/:id", getSingleTask);
  * @swagger
  * /api/v1/tasks/{id}:
  *   put:
- *     summary: タスク更新
+ *     summary: タスク更新（タスク名と完了ステータスの両方を更新可能）
  *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
@@ -146,10 +146,10 @@ router.get("/:id", getSingleTask);
  *               name:
  *                 type: string
  *                 maxLength: 20
- *                 description: タスク名
+ *                 description: タスク名（更新可能）
  *               completed:
  *                 type: boolean
- *                 description: 完了ステータス
+ *                 description: 完了ステータス（更新可能）
  *     responses:
  *       200:
  *         description: タスク更新成功
