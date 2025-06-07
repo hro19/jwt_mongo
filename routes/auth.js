@@ -6,6 +6,38 @@ const validation = require("../middlewares/validation");
 const tokenHandler = require("../middlewares/tokenHandler");
 const userController = require("../controllers/users");
 
+/**
+ * @swagger
+ * /api/v1/register:
+ *   post:
+ *     summary: ユーザー新規登録
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserRegister'
+ *     responses:
+ *       201:
+ *         description: ユーザー登録成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       400:
+ *         description: バリデーションエラー
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       409:
+ *         description: ユーザー名が既に存在
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 //ユーザー新規登録API
 router.post(
   "/register",
@@ -31,6 +63,38 @@ router.post(
   userController.register
 );
 
+/**
+ * @swagger
+ * /api/v1/login:
+ *   post:
+ *     summary: ユーザーログイン
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserLogin'
+ *     responses:
+ *       200:
+ *         description: ログイン成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       400:
+ *         description: バリデーションエラー
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: 認証失敗
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 //ユーザーログイン用API
 router.post(
   "/login",
@@ -45,6 +109,31 @@ router.post(
   userController.login
 );
 
+/**
+ * @swagger
+ * /api/v1/verify-token:
+ *   post:
+ *     summary: JWT認証トークン検証
+ *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: トークン検証成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       401:
+ *         description: 認証失敗
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 // JWT認証API
 router.post(
   "/verify-token",

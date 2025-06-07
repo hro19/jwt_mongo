@@ -1,5 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger');
 
 const app = express();
 const taskRoute = require("./routes/tasks");
@@ -30,6 +32,12 @@ const start = async () => {
 };
 
 start();
+
+// Swagger UIの設定
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "Task Manager API Documentation"
+}));
 
 // ルーティング設計 (task)
 app.use("/api/v1/tasks", taskRoute);
