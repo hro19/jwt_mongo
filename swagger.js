@@ -61,14 +61,103 @@ const options = {
               maxLength: 20,
               description: 'タスク名（20文字まで）',
             },
-            completed: {
-              type: 'boolean',
-              default: false,
-              description: '完了ステータス',
+            completedAt: {
+              type: 'string',
+              format: 'date-time',
+              nullable: true,
+              description: '完了日時（nullの場合は未完了）',
+            },
+            dueDate: {
+              type: 'string',
+              format: 'date-time',
+              nullable: true,
+              description: '期日（日付と時間）',
+            },
+            priority: {
+              type: 'string',
+              enum: ['低', '中', '高'],
+              default: '中',
+              description: '優先度',
+            },
+            description: {
+              type: 'string',
+              maxLength: 500,
+              description: 'タスクの詳細説明（500文字まで）',
             },
             userId: {
               type: 'string',
               description: 'ユーザーID',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: '作成日時（自動生成）',
+              readOnly: true
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: '更新日時（自動生成）',
+              readOnly: true
+            }
+          }
+        },
+        TaskCreate: {
+          type: 'object',
+          required: ['name'],
+          properties: {
+            name: {
+              type: 'string',
+              maxLength: 20,
+              description: 'タスク名（20文字まで）',
+            },
+            dueDate: {
+              type: 'string',
+              format: 'date-time',
+              description: '期日（ISO 8601形式: 2024-01-25T15:00:00Z）',
+            },
+            priority: {
+              type: 'string',
+              enum: ['低', '中', '高'],
+              default: '中',
+              description: '優先度',
+            },
+            description: {
+              type: 'string',
+              maxLength: 500,
+              description: 'タスクの詳細説明（500文字まで）',
+            }
+          }
+        },
+        TaskUpdate: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              maxLength: 20,
+              description: 'タスク名（20文字まで）',
+            },
+            completedAt: {
+              type: 'string',
+              format: 'date-time',
+              nullable: true,
+              description: '完了日時（完了時に現在時刻を設定、未完了にする場合はnull）',
+            },
+            dueDate: {
+              type: 'string',
+              format: 'date-time',
+              nullable: true,
+              description: '期日（ISO 8601形式）',
+            },
+            priority: {
+              type: 'string',
+              enum: ['低', '中', '高'],
+              description: '優先度',
+            },
+            description: {
+              type: 'string',
+              maxLength: 500,
+              description: 'タスクの詳細説明（500文字まで）',
             }
           }
         },
