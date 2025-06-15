@@ -19,4 +19,25 @@ const userSchema = new Schema(
   // schemaOptions
 );
 
+const UserInfo = require("./userInfo");
+
+userSchema.post("save", async function (doc, next) {
+  try {
+    // 既にuser_infoが存在しない場合のみ作成
+    const exists = await UserInfo.findOne({ userId: doc._id });
+    if (!exists) {
+      await UserInfo.create({
+        userId: doc._id,
+        fullName: "",
+        age: undefined,
+        address: "",
+        introduction: ""
+      });
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = mongoose.model("User", userSchema);

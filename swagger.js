@@ -218,6 +218,48 @@ const options = {
               description: 'エラーメッセージ',
             }
           }
+        },
+        UserInfo: {
+          type: 'object',
+          required: ['userId'],
+          properties: {
+            _id: {
+              type: 'string',
+              description: 'user_infoのID',
+            },
+            userId: {
+              type: 'string',
+              description: 'ユーザーID（UserのObjectId）',
+            },
+            fullName: {
+              type: 'string',
+              description: '氏名',
+            },
+            age: {
+              type: 'integer',
+              description: '年齢',
+            },
+            address: {
+              type: 'string',
+              description: '住所',
+            },
+            introduction: {
+              type: 'string',
+              description: '紹介文',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: '作成日時',
+              readOnly: true
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: '更新日時',
+              readOnly: true
+            }
+          }
         }
       }
     },

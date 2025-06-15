@@ -7,6 +7,7 @@ const app = express();
 const taskRoute = require("./routes/tasks");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
+const userInfoRoute = require("./routes/userInfo");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 const cors = require("cors");
@@ -47,3 +48,6 @@ app.use("/api/v1/users", userRoute);
 
 // ユーザー新規登録API
 app.use("/api/v1", authRoute);
+
+// ユーザー情報取得API
+app.use("/api/v1/user-info", userInfoRoute);
