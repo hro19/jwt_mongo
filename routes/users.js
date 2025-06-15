@@ -24,7 +24,16 @@ const {
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/User'
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: ユーザーID
+ *                   username:
+ *                     type: string
+ *                     description: ユーザー名
+ *                   userInfo:
+ *                     $ref: '#/components/schemas/UserInfo'
  *       401:
  *         description: 認証失敗
  *         content:
@@ -56,7 +65,16 @@ router.get("/", getAllUsers);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 userInfo:
+ *                   $ref: '#/components/schemas/UserInfo'
+ *                 userTasks:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Task'
  *       404:
  *         description: ユーザーが見つかりません
  *         content:
