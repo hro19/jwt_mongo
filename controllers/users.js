@@ -77,7 +77,22 @@ const login = async (req, res) => {
 //全てのユーザー
 const getAllUsers = async (req, res) => {
   try {
-    const allUser = await User.find({});
+    const allUser = await User.aggregate([
+      {
+        $lookup: {
+          from: "userinfos", // コレクション名は小文字＋s
+          localField: "_id",
+          foreignField: "userId",
+          as: "userInfo"
+        }
+      },
+      {
+        $unwind: {
+          path: "$userInfo",
+          preserveNullAndEmptyArrays: true // userInfoが無い場合も返す
+        }
+      }
+    ]);
     res.status(200).json(allUser);
   } catch (err) {
     res.status(500).json(err);
@@ -92,9 +107,12 @@ const getSingleUser = async (req, res) => {
 
     // 特定のユーザーを取得
     const user = await User.findOne({ _id: id }).exec();
+    // 特定のユーザーのuserInfoを取得
+    const UserInfoModel = require("../models/userInfo");
+    const userInfo = await UserInfoModel.findOne({ userId: id }).exec();
     // 特定のユーザーのtasksを全取得
     const userTasks = await Task.find({ userId: id }).exec();
-    res.status(200).json({user,userTasks});
+    res.status(200).json({user, userInfo, userTasks});
   } catch (err) {
     res.status(500).json(err);
   }
